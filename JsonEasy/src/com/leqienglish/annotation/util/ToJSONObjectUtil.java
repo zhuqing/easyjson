@@ -109,7 +109,7 @@ public class ToJSONObjectUtil {
             return;
         }
         Object value = PropertyUtil.getValue(t, field);
-        String dateStr = DateUtil.toDateFormat(value, jsonDate.format());
+        String dateStr = DateUtil.formaterDate(value, jsonDate.format());
         JSONObject dateJsonObject = new JSONObject();
         dateJsonObject.put("format", jsonDate.format());
         dateJsonObject.put("value", dateStr);

@@ -2,14 +2,11 @@ package com.leqienglish.annotation.util;
 
 import com.leqienglish.annotation.JSON;
 import com.leqienglish.property.PropertyUtil;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.activation.FileDataSource;
 
 import net.sf.json.JSONObject;
 
@@ -23,39 +20,7 @@ public class EntityAndJSON {
 
     private final static String claz = "claz";
 
-    /**
-     * 将实体转换为json字符串
-     *
-     * @param t
-     * @return
-     * @throws Exception
-     */
-    public static <T> String toJSON(T t) throws Exception {
-        JSONObject jsonObject = toJSONObject(t);
-        return jsonObject.toString();
-    }
-
-    /**
-     * 将实体转换为json字符串
-     *
-     * @param t
-     * @return
-     * @throws Exception
-     */
-    public static <T> JSONObject toJSONObject(T t) throws Exception {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put(claz, t.getClass().getName());
-        List<Field> fieldArr = ClassUtil.getFields(t.getClass());
-        for (Field field : fieldArr) {
-            JSON json = field.getAnnotation(JSON.class);
-            if (json != null) {
-                Object value = PropertyUtil.getValue(t, field);
-                jsonObject.put(json.name(), value);
-            }
-        }
-        return jsonObject;
-    }
-
+   
     /**
      * 通过JSON字符串获取对象
      *

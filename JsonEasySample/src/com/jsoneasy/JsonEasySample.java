@@ -6,11 +6,12 @@
 package com.jsoneasy;
 
 import com.jsoneasy.entity.Person;
+import com.leqienglish.annotation.util.ToEntityUtil;
 import com.leqienglish.annotation.util.ToJSONObjectUtil;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.Logger; 
 
 /**
  *
@@ -29,11 +30,14 @@ public class JsonEasySample {
         
         Person firend = new Person();
         firend.setId(10000);
-        person.setBirthDay(Calendar.getInstance().getTime());
+        firend.setBirthDay(Calendar.getInstance().getTime());
         person.setFriend(firend);
-        
+          
         try {
-            System.out.println(ToJSONObjectUtil.toJSON(person));
+            String jsonStr = ToJSONObjectUtil.toJSON(person);
+            System.out.println(jsonStr);
+            Person taPerson = (Person) ToEntityUtil.toObject(jsonStr);
+            assert(taPerson.equals(person));
         } catch (Exception ex) {
             Logger.getLogger(JsonEasySample.class.getName()).log(Level.SEVERE, null, ex);
         }

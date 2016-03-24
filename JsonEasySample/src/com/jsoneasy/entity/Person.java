@@ -9,6 +9,7 @@ import com.leqienglish.annotation.JSON;
 import com.leqienglish.annotation.JSONDate;
 import com.leqienglish.annotation.JSONInner;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -62,6 +63,36 @@ public class Person {
      */
     public void setFriend(Person friend) {
         this.friend = friend;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Person other = (Person) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.birthDay, other.birthDay)) {
+            return false;
+        }
+        if (!Objects.equals(this.friend, other.friend)) {
+            return false;
+        }
+        return true;
     }
     
     

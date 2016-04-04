@@ -10,12 +10,6 @@
             <file>file:/F:/temp/DuoDuoEntity/src/cn/duoduo/entity/CatalogAndContent.java</file>
             <file>file:/F:/temp/DuoDuoEntity/src/cn/duoduo/entity/RelationShip.java</file>
         </group>
-        <group>
-            <file>file:/Users/zhuleqi/GitHub/easyjson/JsonEasy/src/com/leqienglish/annotation/JSONInner.java</file>
-            <file>file:/Users/zhuleqi/GitHub/easyjson/JsonEasy/src/com/leqienglish/annotation/util/EntityAndJSON.java</file>
-            <file>file:/Users/zhuleqi/GitHub/easyjson/JsonEasy/src/com/leqienglish/annotation/JSONDate.java</file>
-            <file>file:/Users/zhuleqi/GitHub/easyjson/JsonEasy/src/com/leqienglish/annotation/util/ToJSONObjectUtil.java</file>
-            <file>file:/Users/zhuleqi/GitHub/easyjson/JsonEasy/src/com/leqienglish/date/DateUtil.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

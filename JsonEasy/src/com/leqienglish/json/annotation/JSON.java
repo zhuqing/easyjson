@@ -1,4 +1,4 @@
-package com.leqienglish.annotation;
+package com.leqienglish.json.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

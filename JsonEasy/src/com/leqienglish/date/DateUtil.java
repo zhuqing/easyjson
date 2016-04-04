@@ -18,28 +18,28 @@ public class DateUtil {
 
     private static SimpleDateFormat dateFormater = new SimpleDateFormat();
 
-    public synchronized static String formaterDate(Object date, String format) {
+    public synchronized static String formatDate(Object date, String format) {
         if (date == null || format == null) {
             return "";
         }
         dateFormater.applyPattern(format);
         if (date instanceof Date) {
-            return formaterDate((Date) date, dateFormater);
+            return formatDate((Date) date, dateFormater);
         } else if (date instanceof Calendar) {
-            return formaterDate((Calendar) date, dateFormater);
+            return formatDate((Calendar) date, dateFormater);
         }
 
         return "";
 
     }
 
-    private static String formaterDate(Date date, SimpleDateFormat dateFormater) {
+    private static String formatDate(Date date, SimpleDateFormat dateFormater) {
 
         return dateFormater.format(date);
 
     }
 
-    private static String formaterDate(Calendar date, SimpleDateFormat dateFormater) {
+    private static String formatDate(Calendar date, SimpleDateFormat dateFormater) {
         return dateFormater.format(date.getTime());
     }
 

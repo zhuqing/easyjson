@@ -3,25 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jsoneasy.entity;
+package com.leqienglish.entity;
 
-import com.leqienglish.json.JSON;
+
+import com.leqienglish.json.annotation.JSON;
+import com.leqienglish.json.annotation.JSONClass;
 import com.leqienglish.json.annotation.JSONDate;
-import com.leqienglish.json.annotation.JSONInner;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
  *
  * @author zhuleqi
  */
+@JSONClass()
 public class Person {
     @JSON(name="id")
     private Integer id;
     @JSONDate(name="birthDate")
     private Date birthDay;
-    @JSONInner(name="friend")
+    @JSONClass(name="friend")
     private Person friend;
+      @JSON(name="name")
+    private String name;
+    @JSON(name="familys")
+    private List<Person> familys;
+    
 
     /**
      * @return the id
@@ -93,6 +101,34 @@ public class Person {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return the familys
+     */
+    public List<Person> getFamilys() {
+        return familys;
+    }
+
+    /**
+     * @param familys the familys to set
+     */
+    public void setFamilys(List<Person> familys) {
+        this.familys = familys;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
     
     

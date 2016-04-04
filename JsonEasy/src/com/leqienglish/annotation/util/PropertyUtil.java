@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.leqienglish.property;
+package com.leqienglish.annotation.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

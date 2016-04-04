@@ -22,21 +22,17 @@ public class JSONCollectionHandler<T extends Collection> extends JSONHandler<T> 
     @Override
     public JSONObject toJSON(T t) {
         JSONObject jsonObject = this.getJSONObject(t);
-        jsonObject.put(this.getValueKey(), getValueJSON(t));
+        jsonObject.put(this.getValueKey(), createJSONArray(t));
 
         return jsonObject;
     }
 
-    private JSONArray getValueJSON(Collection t) {
+    private JSONArray createJSONArray(T t) {
         JSONArray jsonArray = new JSONArray();
 
         for (Object value : t) {
-            JSONHandler handler = this.getJsonManager().getJSONHandler(value.getClass());
-            if (handler != null) {
-                jsonArray.add(handler.toJSON(value));
-            } else {
-                jsonArray.add(this.getJsonManager().getJsonObjectHandler().toJSON(value));
-            }
+
+            jsonArray.add(createJSONObject(value));
 
         }
 
@@ -50,10 +46,10 @@ public class JSONCollectionHandler<T extends Collection> extends JSONHandler<T> 
             JSONArray jsonArray = jsonObject.getJSONArray(this.getValueKey());
             for (int i = 0; i < jsonArray.size(); i++) {
                 JSONObject json = jsonArray.getJSONObject(i);
-                
+
                 Object value = json.get(this.getValueKey());
                 Class claz = this.getClass(json);
-                
+
                 if (value instanceof JSONObject) {
                     JSONHandler handler = this.getJsonManager().getJSONHandler(claz);
                     c.add(handler.toObject(json));

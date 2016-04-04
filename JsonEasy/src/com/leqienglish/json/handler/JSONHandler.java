@@ -50,6 +50,15 @@ public abstract class JSONHandler<T> {
 
         return ClassUtil.getObject(clazName);
     }
+    
+    protected JSONObject createJSONObject(Object value) {
+          JSONHandler handler = this.getJsonManager().getJSONHandler(value.getClass());
+        if (handler == null) {
+            return this.getJsonManager().getJsonObjectHandler().toJSON(value);
+        } else {
+            return handler.toJSON(value);
+        }
+    }
 
     protected Boolean isJSONClass(T t) {
         return t.getClass().isAnnotationPresent(JSONClass.class);

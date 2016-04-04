@@ -15,24 +15,23 @@ import java.util.logging.Logger;
 import net.sf.json.JSONObject;
 
 /**
- *出来注解为JSONClass的类
+ * 出来注解为JSONClass的类
+ *
  * @author zhuleqi
  */
 public class JSONObjectHandler<T> extends JSONHandler<T> {
 
     @Override
     public JSONObject toJSON(T t) {
-        if(t == null){
+        if (t == null) {
             return null;
         }
-            
+
         JSONObject jsonObject = this.getJSONObject(t);
         if (this.isJSONClass(t)) {
-            try {
-                jsonObject.put(this.getValueKey(), getValueJsonObject(t));
-            } catch (Exception ex) {
-                Logger.getLogger(JSONObjectHandler.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+            jsonObject.put(this.getValueKey(), createJSONObject(t));
+
         } else {
             JSONHandler handler = this.getJsonManager().getJSONHandler(t.getClass());
             if (handler == null) {
@@ -52,24 +51,29 @@ public class JSONObjectHandler<T> extends JSONHandler<T> {
      *
      * @param t
      * @return
+     * @throws java.lang.Exception
      */
-    private JSONObject getValueJsonObject(T t) throws Exception {
+    protected JSONObject createJSONObject(Object t) {
         JSONObject jsonObject = new JSONObject();
         List<Field> fieldArr = ClassUtil.getFields(t.getClass());
         for (Field field : fieldArr) {
-            String jsonName = this.getJSONName(field);
-            if(jsonName==null){
-                continue;
-            }
-            Object value = PropertyUtil.getValue(t, field);
-            if(value ==null ){
-                continue;
-            }
-            JSONHandler handler = this.getJsonManager().getJSONHandler(field);
-            if (handler == null) {
-                jsonObject.put(jsonName, value.toString());
-            } else {
-                jsonObject.put(jsonName, handler.toJSON(value));
+            try {
+                String jsonName = this.getJSONName(field);
+                if (jsonName == null) {
+                    continue;
+                }
+                Object value = PropertyUtil.getValue(t, field);
+                if (value == null) {
+                    continue;
+                }
+                JSONHandler handler = this.getJsonManager().getJSONHandler(field);
+                if (handler == null) {
+                    jsonObject.put(jsonName, value.toString());
+                } else {
+                    jsonObject.put(jsonName, handler.toJSON(value));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(JSONObjectHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -79,7 +83,7 @@ public class JSONObjectHandler<T> extends JSONHandler<T> {
 
     @Override
     public T toObject(JSONObject j) {
-        if(j==null){
+        if (j == null) {
             return null;
         }
         try {
@@ -114,11 +118,11 @@ public class JSONObjectHandler<T> extends JSONHandler<T> {
             if (jsonName == null) {
                 continue;
             }
-            
-            if(!jsonObject.has(jsonName)){
+
+            if (!jsonObject.has(jsonName)) {
                 continue;
             }
-            
+
             JSONHandler handler = this.getJsonManager().getJSONHandler(field);
             if (handler == null) {
                 PropertyUtil.setValue(entity, field, ClassUtil.toObject(field.getType(), jsonObject.getString(jsonName)));

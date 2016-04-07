@@ -27,7 +27,7 @@ public class JSONCollectionHandler<T extends Collection> extends JSONHandler<T> 
         return jsonObject;
     }
 
-    private JSONArray createJSONArray(T t) {
+    protected JSONArray createJSONArray(T t) {
         JSONArray jsonArray = new JSONArray();
 
         for (Object value : t) {

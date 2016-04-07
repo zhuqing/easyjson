@@ -10,9 +10,7 @@ import com.leqienglish.json.annotation.JSON;
 import com.leqienglish.json.annotation.JSONClass;
 import com.leqienglish.json.annotation.JSONDate;
 import com.leqienglish.json.manager.JSONHandlerManager;
-import com.leqienglish.annotation.util.PropertyUtil;
 import java.lang.reflect.Field;
-import java.util.Collection;
 
 import net.sf.json.JSONObject;
 
@@ -32,7 +30,7 @@ public abstract class JSONHandler<T> {
     public abstract T toObject(JSONObject jsonObject);
 
     protected JSONObject getJSONObject(T t) {
-        if(t == null){
+        if (t == null) {
             return null;
         }
         JSONObject json = new JSONObject();
@@ -42,7 +40,8 @@ public abstract class JSONHandler<T> {
 
     protected Class getClass(JSONObject json) throws ClassNotFoundException {
         String clazName = json.getString(clazKey);
-        return Class.forName(clazName);
+
+        return ClassUtil.getSimpleClass(clazName);
     }
 
     protected Object getObject(JSONObject json) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
@@ -50,14 +49,11 @@ public abstract class JSONHandler<T> {
 
         return ClassUtil.getObject(clazName);
     }
-    
+
     protected JSONObject createJSONObject(Object value) {
-          JSONHandler handler = this.getJsonManager().getJSONHandler(value.getClass());
-        if (handler == null) {
-            return this.getJsonManager().getJsonObjectHandler().toJSON(value);
-        } else {
-            return handler.toJSON(value);
-        }
+
+        return this.getJsonManager().getJsonObjectHandler().toJSON(value);
+
     }
 
     protected Boolean isJSONClass(T t) {
@@ -67,7 +63,6 @@ public abstract class JSONHandler<T> {
     protected String getValueKey() {
         return valueKey;
     }
-
 
     public String getJSONName(Field field) {
         if (field.isAnnotationPresent(JSONClass.class)) {

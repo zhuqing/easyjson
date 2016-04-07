@@ -8,14 +8,17 @@ package com.leqienglish.json.manager;
 import com.leqienglish.json.annotation.JSON;
 import com.leqienglish.json.annotation.JSONClass;
 import com.leqienglish.json.annotation.JSONDate;
+import com.leqienglish.json.handler.JSONArrayHandler;
 import com.leqienglish.json.handler.JSONCollectionHandler;
 import com.leqienglish.json.handler.JSONDateHandler;
 import com.leqienglish.json.handler.JSONHandler;
+import com.leqienglish.json.handler.JSONMapHandler;
 import com.leqienglish.json.handler.JSONObjectHandler;
 import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 /**
  *
@@ -27,6 +30,8 @@ public class JSONHandlerManager {
     private JSONObjectHandler jsonObjectHandler;
     private JSONCollectionHandler jsonCollectionHandler;
     private JSONDateHandler jsonDateHandler;
+    private JSONMapHandler jsonMapHandler;
+    private JSONArrayHandler jsonArrayHandler;
 
     private JSONHandlerManager() {
 
@@ -61,6 +66,14 @@ public class JSONHandlerManager {
 
         if (Collection.class.isAssignableFrom(claz)) {
             return this.getJsonCollectionHandler();
+        }
+        
+        if(Map.class.isAssignableFrom(claz)){
+            return this.getJsonMapHandler();
+        }
+        
+        if(claz.isArray()){
+            return this.getJsonArrayHandler();
         }
 
         if (claz.isAnnotationPresent(JSONClass.class)) {
@@ -107,6 +120,26 @@ public class JSONHandlerManager {
         }
         this.jsonDateHandler.setDateFormat(format);
         return jsonDateHandler;
+    }
+
+    /**
+     * @return the jsonMapHandler
+     */
+    public JSONMapHandler getJsonMapHandler() {
+        if(this.jsonMapHandler == null){
+            this.jsonMapHandler = new JSONMapHandler();
+        }
+        return jsonMapHandler;
+    }
+
+    /**
+     * @return the jsonArrayHandler
+     */
+    public JSONArrayHandler getJsonArrayHandler() {
+         if(this.jsonArrayHandler == null){
+            this.jsonArrayHandler = new JSONArrayHandler();
+        }
+        return jsonArrayHandler;
     }
 
 }

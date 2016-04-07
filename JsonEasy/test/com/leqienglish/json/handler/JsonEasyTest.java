@@ -7,13 +7,22 @@ package com.leqienglish.json.handler;
 
 import junit.framework.Assert;
 import net.sf.json.JSONObject;
+import org.junit.Before;
 
 /**
  *
  * @author zhuleqi
  */
+
 public class JsonEasyTest {
 
+    
+    public JsonEasyTest() {
+    }
+
+     @Before
+    public void setUp() {
+    }
     public void testClaz(Object value, JSONObject jsonObject) {
         Assert.assertEquals(value.getClass().getName(), jsonObject.getString("claz"));
     }
@@ -27,6 +36,10 @@ public class JsonEasyTest {
     
     public JSONObject getJSONObject(String json){
         return JSONObject.fromObject(json);
+    }
+    
+    public void printf(JSONObject json){
+        System.err.println(json);
     }
         
 }

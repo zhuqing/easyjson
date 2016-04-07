@@ -42,6 +42,14 @@ public class ClassUtil {
         return Class.forName(claz);
     }
 
+    public static Class getSimpleClass(String claz) throws ClassNotFoundException {
+        if (claz.contains("[")) {
+            claz = claz.substring(2, claz.length() - 1);
+        }
+
+        return Class.forName(claz);
+    }
+
     public static Object getObject(String claz) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class clazz = getClass(claz);
         return clazz.newInstance();

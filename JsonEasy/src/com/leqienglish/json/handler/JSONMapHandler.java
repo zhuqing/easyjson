@@ -7,6 +7,8 @@ package com.leqienglish.json.handler;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -43,7 +45,28 @@ public class JSONMapHandler<T extends Map> extends JSONHandler<T> {
 
     @Override
     public T toObject(JSONObject jsonObject) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            T t = (T) this.getObject(jsonObject);
+            JSONArray array = jsonObject.getJSONArray(this.getValueKey());
+            for(int i = 0 ; i < array.size() ; i++){
+                JSONObject item = array.getJSONObject(i);
+
+                Object key = this.getJsonManager().getJsonObjectHandler().toObject(item.getJSONObject(KEY));
+                Object value = this.getJsonManager().getJsonObjectHandler().toObject(item.getJSONObject(this.getValueKey()));
+                t.put(key, value);
+                
+            }
+            
+            return t;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(JSONMapHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(JSONMapHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(JSONMapHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
     }
 
 }

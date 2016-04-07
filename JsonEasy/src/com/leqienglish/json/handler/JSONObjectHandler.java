@@ -87,11 +87,11 @@ public class JSONObjectHandler<T> extends JSONHandler<T> {
             return null;
         }
         try {
-            Class claz = this.getClass(j);
+            
             Object value = j.get(this.getValueKey());
             Object entity = null;
             if (value instanceof String) {
-                entity = ClassUtil.toObject(claz, value.toString());
+                entity = ClassUtil.toObject(this.getClass(j), value.toString());
 
             } else {
                 entity = this.getObject(j);

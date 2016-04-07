@@ -45,18 +45,7 @@ public class JSONCollectionHandler<T extends Collection> extends JSONHandler<T> 
             T c = (T) this.getObject(jsonObject);
             JSONArray jsonArray = jsonObject.getJSONArray(this.getValueKey());
             for (int i = 0; i < jsonArray.size(); i++) {
-                JSONObject json = jsonArray.getJSONObject(i);
-
-                Object value = json.get(this.getValueKey());
-                Class claz = this.getClass(json);
-
-                if (value instanceof JSONObject) {
-                    JSONHandler handler = this.getJsonManager().getJSONHandler(claz);
-                    c.add(handler.toObject(json));
-                } else {
-
-                    c.add(ClassUtil.toObject(claz, value.toString()));
-                }
+                    c.add(this.getJsonManager().getJsonObjectHandler().toObject(jsonArray.getJSONObject(i))); 
             }
 
             return c;

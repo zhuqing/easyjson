@@ -43,6 +43,12 @@ public class JSONMapHandlerTest  extends JsonEasyTest{
 
     @Test
     public void testToObject() {
+        String json = "{\"claz\":\"java.util.HashMap\",\"value\":[{\"key\":{\"claz\":\"java.lang.String\",\"value\":\"1\"},\"value\":{\"claz\":\"java.lang.String\",\"value\":\"1111\"}},{\"key\":{\"claz\":\"java.lang.String\",\"value\":\"2\"},\"value\":{\"claz\":\"java.lang.String\",\"value\":\"2222\"}}]}";
+         JSONMapHandler<HashMap> jsonMapHandler = new JSONMapHandler<HashMap>();
+         Map map = jsonMapHandler.toObject(this.getJSONObject(json));
+         Assert.assertEquals(2, map.size());
+         Assert.assertEquals("1111", map.get("1"));
+         Assert.assertEquals("2222", map.get("2"));
     }
     
 }

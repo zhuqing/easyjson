@@ -77,6 +77,10 @@ public class ClassUtil {
         if (claz.isAssignableFrom(Character.class) || claz.isAssignableFrom(char.class)) {
             return Character.valueOf(value.charAt(0));
         }
+        
+        if(claz.isEnum()){
+            return Enum.valueOf(claz, value);
+        }
 
         if (claz.isAssignableFrom(String.class)) {
             return value;

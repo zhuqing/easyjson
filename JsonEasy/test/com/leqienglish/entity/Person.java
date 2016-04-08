@@ -29,6 +29,8 @@ public class Person {
     private String name;
     @JSON(name="familys")
     private List<Person> familys;
+    @JSON(name="grade")
+    private GradeEnum grade;
     
 
     /**
@@ -129,6 +131,20 @@ public class Person {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the grade
+     */
+    public GradeEnum getGrade() {
+        return grade;
+    }
+
+    /**
+     * @param grade the grade to set
+     */
+    public void setGrade(GradeEnum grade) {
+        this.grade = grade;
     }
     
     

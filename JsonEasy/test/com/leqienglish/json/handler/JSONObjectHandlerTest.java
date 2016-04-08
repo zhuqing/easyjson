@@ -6,6 +6,7 @@
 package com.leqienglish.json.handler;
 
 import com.leqienglish.date.DateUtil;
+import com.leqienglish.entity.GradeEnum;
 import com.leqienglish.entity.Person;
 import java.util.Calendar;
 import java.util.Date;
@@ -50,6 +51,32 @@ public class JSONObjectHandlerTest  extends JsonEasyTest{
         System.err.println(jsonObject.toString());
         Assert.assertEquals("java.lang.Integer", jsonObject.getString("claz"));
         Assert.assertEquals("100", jsonObject.getString("value"));
+    }
+    
+      @Test
+    public void testToJSONEnum() {
+        JSONObjectHandler handler = new JSONObjectHandler();
+        
+        JSONObject jsonObject = handler.toJSON(GradeEnum.FIRST);
+        System.err.println(jsonObject.toString());
+        Assert.assertEquals("com.leqienglish.entity.GradeEnum", jsonObject.getString("claz"));
+        Assert.assertEquals("FIRST", jsonObject.getString("value"));
+    }
+    
+          @Test
+    public void testToJSONPersonEnum() {
+        JSONObjectHandler handler = new JSONObjectHandler();
+         Person person = new Person();
+        person.setId(1000);
+        person.setGrade(GradeEnum.FIRST);
+        JSONObject jsonObject = handler.toJSON(person);
+        System.err.println(jsonObject.toString());
+        this.testClaz(person, jsonObject);
+       
+        Person person2 = (Person) handler.toObject(jsonObject);
+        
+        Assert.assertEquals(person.getGrade(), person2.getGrade());
+         Assert.assertEquals(person.getId(), person2.getId());
     }
 
     @Test

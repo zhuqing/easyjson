@@ -1,2 +1,3 @@
 /JsonEasy/build/
 *.class
+/JsonEasy/dist/

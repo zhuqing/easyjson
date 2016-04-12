@@ -66,7 +66,7 @@ public class JSONObjectHandler<T> extends JSONHandler<T> {
                 if (value == null) {
                     continue;
                 }
-                JSONHandler handler = this.getJsonManager().getJSONHandler(field);
+                JSONHandler handler = this.getJsonManager().getJSONHandler(value.getClass());
                 if (handler == null) {
                     jsonObject.put(jsonName, value.toString());
                 } else {

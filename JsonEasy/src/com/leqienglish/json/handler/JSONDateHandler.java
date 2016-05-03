@@ -12,7 +12,8 @@ import java.util.logging.Logger;
 import net.sf.json.JSONObject;
 
 /**
- *
+ *将日期转换为JSON数据,
+ * json格式的数据转换为日期
  * @author zhuleqi
  */
 public class JSONDateHandler<T> extends JSONHandler<T> {

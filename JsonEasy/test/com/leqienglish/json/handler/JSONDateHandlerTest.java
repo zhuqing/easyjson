@@ -12,7 +12,6 @@ import junit.framework.Assert;
 import net.sf.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
